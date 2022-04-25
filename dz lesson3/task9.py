@@ -14,4 +14,9 @@
 x = int(5)
 y = int(3)
 z = int(15)
-print (max(x,y,z))
+if x>y and x>z:
+    print("Наибольшее число",x)
+if y>z and y>x:
+    print("Наибольшее число",y)
+if z>x and z>y:
+    print("Наибольшее число",z)
