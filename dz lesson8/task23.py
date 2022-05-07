@@ -1,5 +1,5 @@
 
-alphabet = "abcdifghijklmnopqrstuvwxyzabcdifghijklmnopqrstuvwxyz"
+alphabet = "abcdefghijklmnopqrstuvwxyz"
 massedge = "grznuamn zngz cge sge tuz hk uhbouay gz loxyz atrkyy eua'xk jazin"
 key = int(input("введите сдвиг: "))
 encrypted = ""
