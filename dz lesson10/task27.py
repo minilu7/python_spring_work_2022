@@ -16,3 +16,49 @@
 #При выборе 1. начинается новая игра.
 #При выборе 2. пользователю выводится список всех сохраненных игр(происходит десериализация).
 #Из них он выберает нужную, после чего загружается состояние игры на момент сохранения.
+
+import pickle
+import random
+
+z = random.randint(0,100)
+print(z)
+save = input("Выберите цифру:\n 1. Новая игра\n "
+             "2. Сохраненные игры: \n >>")
+if save == "1":
+    pass
+if save == "2":
+    sg = open("savelist.txt", mode="r", encoding="UTF-8") #файл с сохраненными играми
+    print("Сохраненные игры\n",sg.readlines())
+    sg2 = input("Введите название сохраенной игры: ")
+    savefiles = pickle.loads(sg2)
+    sg.close()
+fale = 0
+while fale < 10:
+    a = input("Введите предпологаемое число: \n" "Если хотите сохранить игру введите S или s")
+    print(type(a))
+    if a in ['s', 'S', 'ы', 'Ы']:
+        print("Игра будет сохранена")
+        save1 = []
+        save1 = fale, z #сохраняем количество попыток и загаданное число
+        savename = input("введите название игры для сохранения: ")
+        with open("game_dump.pkl", "ab") as f:
+            pickle.dump(save1, f, pickle.HIGHEST_PROTOCOL)
+            f.close()
+            print("Игра сохранена!")
+        newnamegame = open("savelist.txt", mode="at", encoding="UTF-8")
+        newnamegame.write(savename + " ; ")
+        break
+    if a.isdigit():
+       a = int(a)
+       if a < z:
+           print("Больше")
+           fale += 1
+       if a > z:
+           print("Меньше")
+           fale += 1
+       if a == z:
+           print("Вы угадали")
+           break
+       if fale == 10:
+           print("Вы проиграли")
+           break
