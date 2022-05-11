@@ -21,6 +21,7 @@ import pickle
 import random
 from serial import to_pickle
 z = random.randint(0,100)
+fale = 0
 print(z)
 save = input("Выберите цифру:\n 1. Новая игра\n "
              "2. Сохраненные игры: \n >>")
@@ -32,8 +33,10 @@ if save == "2":
     sg2 = input("Введите название сохраенной игры: ")
     with open(sg2, 'rb') as f:
         save_files = pickle.load(f)
+        print(save_files)
+        fale = save_files[0]
+        z = save_files[1]
     sg.close()
-fale = 0
 while fale < 10:
     a = input("Введите предпологаемое число: \n" "Если хотите сохранить игру введите S или s")
     print(type(a))
@@ -51,11 +54,11 @@ while fale < 10:
     if a.isdigit():
        a = int(a)
        if a < z:
-           print("Больше")
            fale += 1
+           print("Больше.", fale,"попыток из 10")
        if a > z:
-           print("Меньше")
            fale += 1
+           print("Меньше", fale,"попыток из 10")
        if a == z:
            print("Вы угадали")
            break
