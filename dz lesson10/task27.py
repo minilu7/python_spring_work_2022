@@ -19,7 +19,7 @@
 
 import pickle
 import random
-
+from serial import to_pickle
 z = random.randint(0,100)
 print(z)
 save = input("Выберите цифру:\n 1. Новая игра\n "
@@ -27,10 +27,11 @@ save = input("Выберите цифру:\n 1. Новая игра\n "
 if save == "1":
     pass
 if save == "2":
-    sg = open("savelist.txt", mode="r", encoding="UTF-8") #файл с сохраненными играми
+    sg = open("savelist.txt", mode="r") #файл с сохраненными играми
     print("Сохраненные игры\n",sg.readlines())
     sg2 = input("Введите название сохраенной игры: ")
-    savefiles = pickle.loads(sg2)
+    with open(sg2, 'rb') as f:
+        save_files = pickle.load(f)
     sg.close()
 fale = 0
 while fale < 10:
@@ -38,15 +39,14 @@ while fale < 10:
     print(type(a))
     if a in ['s', 'S', 'ы', 'Ы']:
         print("Игра будет сохранена")
-        save1 = []
-        save1 = fale, z #сохраняем количество попыток и загаданное число
         savename = input("введите название игры для сохранения: ")
-        with open("game_dump.pkl", "ab") as f:
-            pickle.dump(save1, f, pickle.HIGHEST_PROTOCOL)
-            f.close()
-            print("Игра сохранена!")
-        newnamegame = open("savelist.txt", mode="at", encoding="UTF-8")
-        newnamegame.write(savename + " ; ")
+        fx = open("savelist.txt",  mode="at", encoding="UTF-8")
+        fx.write(savename +".pkl ;")
+        save1 = []
+        save1 = fale, z  # сохраняем количество попыток и загаданное число
+        to_pickle(save1, f"{savename}.pkl", "wb")
+        fx.close()
+        print("Игра сохранена!")
         break
     if a.isdigit():
        a = int(a)
