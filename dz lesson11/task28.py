@@ -10,21 +10,21 @@
 import datetime
 count = int()
 def decorator_sort(func):
-    count = 0
+    count = 0#эта часть должна считать кол-во вхождений. Пока не считает
     count += 1
     print(count)
-    def wrapper(name):
-            global count
-            file = open("debug.log", "a")
+    def wrapper(name):#декоратор для функции
+            global count#должно считать кол-во вхождений. почему то не работает. надо подумать
+            file = open("debug.log", "a")#открываем файл в который все записываем
             a = datetime.datetime.now() #вызываем дату и время
-            print(a)
+            print(a)#печатаем время для проверки
             func(name) #сама функция
-            b = func.__name__ #записываем только название функции
-            file.write(str(b) + ", " + str(a) + "\n" )
+            b = func.__name__ #только название функции
+            file.write(str(b) + ", " + str(a) + "\n" )#собственно записываем всю инфу в файл
     return wrapper
 
-@decorator_sort
-def insertionSort(array): #Пишем функцию сортировки в массиве
+@decorator_sort#вызвали декоратор
+def insertionSort(array): #Пишем функцию сортировки в массиве(это из курсовой)
     for step in range(1, len(array)):
         key = array[step]
         a = step - 1
